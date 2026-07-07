@@ -1,6 +1,8 @@
-import { Card, CardContent } from '@/components/ui/card'
-import { dayjs } from '@/lib/dayjs'
 import { Bot, Loader2, MessageSquare } from 'lucide-react'
+
+import { dayjs } from '@/lib/dayjs'
+
+import { Card, CardContent } from '@/components/ui/card'
 
 interface Question {
   id: string

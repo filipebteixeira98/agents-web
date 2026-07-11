@@ -4,10 +4,20 @@ import type { CreateQuestionRequest } from './types/create-question-request'
 import type { CreateQuestionResponse } from './types/create-question-response'
 import type { GetRoomQuestionsResponse } from './types/get-room-questions-response'
 
+interface CreateQuestionMutationContext {
+  previousQuestions?: GetRoomQuestionsResponse
+}
+
 export function useCreateQuestion(roomId: string) {
   const queryClient = useQueryClient()
+  const queryKey = ['get-questions', roomId]
 
-  return useMutation({
+  return useMutation<
+    CreateQuestionResponse,
+    Error,
+    CreateQuestionRequest,
+    CreateQuestionMutationContext
+  >({
     mutationFn: async (data: CreateQuestionRequest) => {
       const response = await fetch(
         `http://localhost:3333/rooms/${roomId}/questions`,
@@ -24,13 +34,21 @@ export function useCreateQuestion(roomId: string) {
 
       return result
     },
-    onMutate({ question }) {
-      const questions = queryClient.getQueryData<GetRoomQuestionsResponse>([
-        'get-questions',
-        roomId,
-      ])
+    onError(_error, _variables, context) {
+      if (context?.previousQuestions) {
+        queryClient.setQueryData<GetRoomQuestionsResponse>(
+          queryKey,
+          context.previousQuestions
+        )
+      }
+    },
+    async onMutate({ question }) {
+      await queryClient.cancelQueries({ queryKey })
 
-      const questionsArray = questions ?? []
+      const previousQuestions =
+        queryClient.getQueryData<GetRoomQuestionsResponse>(queryKey)
+
+      const questions = previousQuestions ?? []
 
       const newQuestion = {
         id: crypto.randomUUID(),
@@ -40,47 +58,15 @@ export function useCreateQuestion(roomId: string) {
         isGeneratingAnswer: true,
       }
 
-      queryClient.setQueryData<GetRoomQuestionsResponse>(
-        ['get-questions', roomId],
-        [newQuestion, ...questionsArray]
-      )
+      queryClient.setQueryData<GetRoomQuestionsResponse>(queryKey, [
+        newQuestion,
+        ...questions,
+      ])
 
-      return { newQuestion, questions }
+      return { previousQuestions }
     },
-    onSuccess: (data, _variables, context) => {
-      queryClient.setQueryData<GetRoomQuestionsResponse>(
-        ['get-questions', roomId],
-        (questions) => {
-          if (!questions) {
-            return questions
-          }
-
-          if (!context.newQuestion) {
-            return questions
-          }
-
-          return questions.map((question) => {
-            if (question.id === context.newQuestion.id) {
-              return {
-                ...context.newQuestion,
-                id: data.questionId,
-                answer: data.answer,
-                isGeneratingAnswer: false,
-              }
-            }
-
-            return question
-          })
-        }
-      )
-    },
-    onError(_error, _variables, context) {
-      if (context?.questions) {
-        queryClient.setQueryData<GetRoomQuestionsResponse>(
-          ['get-questions', roomId],
-          context.questions
-        )
-      }
+    onSettled() {
+      queryClient.invalidateQueries({ queryKey })
     },
   })
 }

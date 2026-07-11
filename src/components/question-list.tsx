@@ -16,9 +16,12 @@ export function QuestionList(props: QuestionListProps) {
           Questions & Answers
         </h2>
       </div>
-      {data?.map((question) => {
-        return <QuestionItem key={question.id} question={question} />
-      })}
+      {data?.map((question) => (
+        <QuestionItem
+          key={question.renderKey ?? question.id}
+          question={question}
+        />
+      ))}
     </div>
   )
 }

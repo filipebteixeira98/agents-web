@@ -1,8 +1,33 @@
-# Agents Web
+# 🤖 Agents Web
+
+<p align="center">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/filipebteixeira98/agents-web?color=dddddd&style=flat-square">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/filipebteixeira98/agents-web?color=dddddd&style=flat-square">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/filipebteixeira98/agents-web?color=dddddd&style=flat-square">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/filipebteixeira98/agents-web?color=dddddd&style=flat-square">
+  <img alt="GitHub stars" src="https://img.shields.io/github/stars/filipebteixeira98/agents-web?color=dddddd&style=flat-square">
+  <img alt="GitHub forks" src="https://img.shields.io/github/forks/filipebteixeira98/agents-web?color=dddddd&style=flat-square">
+  <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/filipebteixeira98/agents-web?color=dddddd&style=flat-square">
+</p>
+
+<p align="center">
+  <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-project">Project Patterns</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-setup">Setup</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-license">License</a>
+</p>
+
+<p align="center">
+  <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=dddddd&labelColor=808090">
+</p>
+
+<p align="center">
+  <img alt="agents-web" src=".github/mockup.png" width="100%">
+</p>
 
 Agents Web is a classroom assistant frontend where users can create rooms, record class audio, ask questions, and receive concise AI-generated answers based on the class transcription. The app is designed to keep class discussions organized by room and make it easier to revisit key explanations after a lesson.
 
-## Technologies
+## 🚀 Technologies
 
 - **React 19** - UI library
 - **TypeScript 6** - Static typing for JavaScript
@@ -16,7 +41,7 @@ Agents Web is a classroom assistant frontend where users can create rooms, recor
 - **shadcn/ui** - Component system
 - **Lucide React** - Icon library
 
-## Project Patterns
+## 🏗️ Project Patterns
 
 - **Component-based architecture** - Reusable React components
 - **Route-based pages** - Pages composed with React Router
@@ -25,7 +50,7 @@ Agents Web is a classroom assistant frontend where users can create rooms, recor
 - **Composition pattern** - Component composition with primitive render APIs
 - **Path aliasing** - `@/` points to `src/`
 
-## Project Setup
+## ⚙️ Setup
 
 ### Prerequisites
 
@@ -61,7 +86,7 @@ Agents Web is a classroom assistant frontend where users can create rooms, recor
 
 The frontend expects an API running at `http://localhost:3333`. Start and configure the backend before using room creation, room listing, question submission, and audio upload features.
 
-## Project Structure
+## 🧬 Project Structure
 
 ```text
 src/
@@ -72,3 +97,15 @@ src/
 ├── app.tsx          # Root router and providers
 └── main.tsx         # React entry point
 ```
+
+## 🫶 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is under the MIT license.
+
+<p align="center">
+  Made with ♥ by me
+</p>
